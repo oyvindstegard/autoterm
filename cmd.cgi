@@ -27,11 +27,4 @@ case $QUERY_STRING in
         print_random_command ;;
 esac
 
-# cmd=commands/manyou.cmd
-# if [ -x "$cmd" ]; then
-#     $cmd
-# else
-#     cat $cmd
-# fi
-
 exit 0
