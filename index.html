@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta name="google-site-verification" content="h8uhI5f5QAv62V46f_j1PzOH-FdYWB9Okn32vXIUAKE" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=0.5" />
+
+<title>The Autonomous Terminal - Commands of wisdom and nonsense</title>
+
+<meta name="keywords" content="autonomous terminal, command line, jokes, fortune" />
+
+<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="autoterm.js"></script>
+<script type="text/javascript">
+// <![CDATA[
+
+var autoterm = null;
+var first = true;
+var defaultPrompt = '$ ';
+
+function fetchNextCmd() {
+    if (!autoterm) return false;
+
+    if (first) {
+        first = false;
+        autoterm.exec(
+             '^S9# Autonomous terminal at my service. Stay away from keyboard, thank you.\n',
+             '', 1500);
+        setTimeout(fetchNextCmd, 2000);
+        return true;
+    }
+
+    if (autoterm.busy) {
+        setTimeout(fetchNextCmd, 2000);
+        return true;
+    }
+
+    var fetchUrl = 'cmd.cgi';
+    var nextPause = 3000;
+    if (Math.random() < 0.45) {
+        fetchUrl += '?fortune';
+        nextPause = 5000; // give time to ponder
+    }
+
+    if (autoterm.lines() > 40) {
+        autoterm.clear();
+    }
+    
+    $.ajax(
+        { url: fetchUrl,
+          cache: false,
+          dataType: 'text/plain',
+          success: function(data) {
+              autoterm.exec(data, defaultPrompt, nextPause);
+              setTimeout(fetchNextCmd, 2000);
+          }
+        }
+    );
+}
+
+$(document).ready(function() {
+    autoterm = new AutoTerm($('#autoterm').get(0));
+    fetchNextCmd();
+});
+
+// ]]>
+</script>
+<style type="text/css">
+  .bubble { color: white; font-style: italic; }
+  #content { position: absolute; top: 0; left: 0; }
+</style>
+</head>
+
+<body style="background-color: black; color: white">
+<img src="autoterm.png" style="position: fixed; top: 0px; right: 0px; margin: 1em" />
+
+<!-- Page content -->
+<div id="content">
+
+<pre id="autoterm" style="color:#00fa9a; padding-left: 1em;border-style: none; font-size: 130%">
+</pre>
+
+<!-- Footer section -->
+
+</div><!-- EndOfContent -->
+
+</body>
+</html>

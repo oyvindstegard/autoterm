@@ -1,0 +1,2 @@
+^P^S9interationnalizion^B^B^B^B^Z^B^B^B^B^B^B^B^B^B^B^B^B^B^B^S8p^Bine^Zrant^B^B^Bba^B^B^B^B^S5teriz^B^B^S3nationalzat^S2^B^B^Bizaiton^B^B^B^Btion^S1^C^S5
+^P^Z^Tbad keyboard day today ..

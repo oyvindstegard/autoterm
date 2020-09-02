@@ -1,0 +1,4 @@
+Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+AddHandler cgi-script cgi
+RewriteEngine on
+RewriteRule ^full$ index.html

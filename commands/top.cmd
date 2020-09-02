@@ -1,0 +1,100 @@
+^Pperl -e 'while(1){}' &^
+[1] 22735
+^Pperl -e 'while(1){}' &^
+[2] 22736
+^P^Ztop^
+^Ltop - 23:49:48 up  7:42,  5 users,  load average: 0.93, 0.40, 0.24
+Tasks: 261 total,   3 running, 258 sleeping,   0 stopped,   0 zombie
+Cpu(s):  0.7%us,  0.3%sy,  0.8%ni, 94.3%id,  3.8%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:   8194576k total,  2394400k used,  5800176k free,   138176k buffers
+Swap:  5855684k total,        0k used,  5855684k free,  1499924k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
+22735 autoterm  20   0 18172 1776 1404 R   98  0.0   0:17.72 perl
+22736 autoterm  20   0 18172 1776 1404 R   98  0.0   0:14.70 perl
+14941 autoterm  20   0 19356 1544 1060 S    2  0.0   0:35.13 top
+22739 autoterm  20   0 19352 1388  936 R    2  0.0   0:00.02 top
+22740 autoterm  20   0  5636  784  652 S    2  0.0   0:00.01 head
+    1 root      20   0 23820 2008 1292 S    0  0.0   0:00.92 init
+    2 root      20   0     0    0    0 S    0  0.0   0:00.01 kthreadd
+    3 root      RT   0     0    0    0 S    0  0.0   0:00.01 migration/0
+^Z^Z^Z^Z^Z^Z^Z^Z^Z^Ltop - 23:49:50 up  7:42,  5 users,  load average: 1.02, 0.42, 0.24
+Tasks: 261 total,   3 running, 258 sleeping,   0 stopped,   0 zombie
+Cpu(s):  0.7%us,  0.3%sy,  0.8%ni, 94.3%id,  3.8%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:   8194576k total,  2394772k used,  5799804k free,   138176k buffers
+Swap:  5855684k total,        0k used,  5855684k free,  1499952k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
+22735 autoterm  20   0 18172 1776 1404 R  100  0.0   0:19.56 perl
+22736 autoterm  20   0 18172 1776 1404 R  100  0.0   0:16.54 perl
+    1 root      20   0 23820 2008 1292 S    0  0.0   0:00.92 init
+    2 root      20   0     0    0    0 S    0  0.0   0:00.01 kthreadd
+    3 root      RT   0     0    0    0 S    0  0.0   0:00.01 migration/0
+    4 root      20   0     0    0    0 S    0  0.0   0:00.46 ksoftirqd/0
+    5 root      RT   0     0    0    0 S    0  0.0   0:00.00 watchdog/0
+    6 root      RT   0     0    0    0 S    0  0.0   0:00.02 migration/1
+^Z^Z^Z^Z^Z^Z^Z^Z^Z^Ltop - 23:49:52 up  7:42,  5 users,  load average: 1.02, 0.42, 0.24
+Tasks: 261 total,   3 running, 258 sleeping,   0 stopped,   0 zombie
+Cpu(s):  0.7%us,  0.3%sy,  0.8%ni, 94.3%id,  3.8%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:   8194576k total,  2394632k used,  5799944k free,   138176k buffers
+Swap:  5855684k total,        0k used,  5855684k free,  1499952k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
+22735 autoterm  20   0 18172 1776 1404 R  100  0.0   0:21.62 perl
+22736 autoterm  20   0 18172 1776 1404 R   98  0.0   0:18.60 perl
+22745 autoterm  20   0 19352 1388  936 R    2  0.0   0:00.02 top
+    1 root      20   0 23820 2008 1292 S    0  0.0   0:00.92 init
+    2 root      20   0     0    0    0 S    0  0.0   0:00.01 kthreadd
+    3 root      RT   0     0    0    0 S    0  0.0   0:00.01 migration/0
+    4 root      20   0     0    0    0 S    0  0.0   0:00.46 ksoftirqd/0
+    5 root      RT   0     0    0    0 S    0  0.0   0:00.00 watchdog/0
+^Z^Z^Z^Z^Z^Z^Z^Z^Z^Ltop - 23:49:54 up  7:42,  5 users,  load average: 1.02, 0.42, 0.24
+Tasks: 261 total,   3 running, 258 sleeping,   0 stopped,   0 zombie
+Cpu(s):  0.7%us,  0.3%sy,  0.8%ni, 94.3%id,  3.8%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:   8194576k total,  2394632k used,  5799944k free,   138184k buffers
+Swap:  5855684k total,        0k used,  5855684k free,  1499948k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
+22735 autoterm  20   0 18172 1776 1404 R  102  0.0   0:23.66 perl
+22736 autoterm  20   0 18172 1776 1404 R  100  0.0   0:20.64 perl
+14941 autoterm  20   0 19356 1544 1060 S    2  0.0   0:35.14 top
+    1 root      20   0 23820 2008 1292 S    0  0.0   0:00.92 init
+    2 root      20   0     0    0    0 S    0  0.0   0:00.01 kthreadd
+    3 root      RT   0     0    0    0 S    0  0.0   0:00.01 migration/0
+    4 root      20   0     0    0    0 S    0  0.0   0:00.46 ksoftirqd/0
+    5 root      RT   0     0    0    0 S    0  0.0   0:00.00 watchdog/0
+^Z^Z^Z^Z^Z^Z^Z^Z^Z^Ltop - 23:49:56 up  7:43,  5 users,  load average: 1.10, 0.45, 0.25
+Tasks: 261 total,   3 running, 258 sleeping,   0 stopped,   0 zombie
+Cpu(s):  0.7%us,  0.3%sy,  0.8%ni, 94.3%id,  3.8%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:   8194576k total,  2394632k used,  5799944k free,   138192k buffers
+Swap:  5855684k total,        0k used,  5855684k free,  1499956k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
+22735 autoterm  20   0 18172 1776 1404 R  100  0.0   0:25.71 perl
+22736 autoterm  20   0 18172 1776 1404 R   98  0.0   0:22.69 perl
+22749 autoterm  20   0 19352 1388  936 R    2  0.0   0:00.02 top
+    1 root      20   0 23820 2008 1292 S    0  0.0   0:00.92 init
+    2 root      20   0     0    0    0 S    0  0.0   0:00.01 kthreadd
+    3 root      RT   0     0    0    0 S    0  0.0   0:00.01 migration/0
+    4 root      20   0     0    0    0 S    0  0.0   0:00.46 ksoftirqd/0
+    5 root      RT   0     0    0    0 S    0  0.0   0:00.00 watchdog/0
+^Z^Z^Z^Z^Z^Z^Z^Z^Z^Ltop - 23:49:58 up  7:43,  5 users,  load average: 1.10, 0.45, 0.25
+Tasks: 261 total,   3 running, 258 sleeping,   0 stopped,   0 zombie
+Cpu(s):  0.7%us,  0.3%sy,  0.8%ni, 94.3%id,  3.8%wa,  0.0%hi,  0.0%si,  0.0%st
+Mem:   8194576k total,  2394632k used,  5799944k free,   138192k buffers
+Swap:  5855684k total,        0k used,  5855684k free,  1499956k cached
+
+  PID USER      PR  NI  VIRT  RES  SHR S %CPU %MEM    TIME+  COMMAND
+22735 autoterm  20   0 18172 1776 1404 R  100  0.0   0:27.66 perl
+22736 autoterm  20   0 18172 1776 1404 R  100  0.0   0:24.64 perl
+    1 root      20   0 23820 2008 1292 S    0  0.0   0:00.92 init
+    2 root      20   0     0    0    0 S    0  0.0   0:00.01 kthreadd
+    3 root      RT   0     0    0    0 S    0  0.0   0:00.01 migration/0
+    4 root      20   0     0    0    0 S    0  0.0   0:00.46 ksoftirqd/0
+    5 root      RT   0     0    0    0 S    0  0.0   0:00.00 watchdog/0
+    6 root      RT   0     0    0    0 S    0  0.0   0:00.02 migration/1
+^P^Zkill %1 %2^
+^P^
+[1]-  Terminated              perl -e 'while(1){}'
+[2]+  Terminated              perl -e 'while(1){}'
+^P
