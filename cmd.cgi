@@ -2,29 +2,25 @@
 printf 'Content-Type: text/plain; charset=utf-8\r\n'
 printf '\r\n'
 
-print_fortune() {
-    printf '^Pfortune^\n'
-    /usr/games/fortune
-    printf '^P'
-}
-
-print_random_command() {
-    local cmd
-    cmd=`/bin/ls commands/*.cmd 2>/dev/null | /usr/bin/sort -R | /usr/bin/head -n1`
-    [ -z "$cmd" ] && return 1
-
-    if [ -x "$cmd" ]; then
-        $cmd
+print_command_exit() {
+    if [ -x "$1" ]; then
+        exec "$1"
     else
-        cat $cmd
+        exec cat "$1"
     fi
 }
 
-case $QUERY_STRING in
-    *fortune*)
-        print_fortune ;;
-    *)
-        print_random_command ;;
-esac
+print_random_command_exit() {
+    local cmd
+    cmd=`/bin/ls commands/*.cmd 2>/dev/null | /usr/bin/sort -R | /usr/bin/head -n1`
+    [ -z "$cmd" ] && exit 1
+    print_command_exit "$cmd"
+}
 
-exit 0
+if echo "$QUERY_STRING"|/bin/grep -Eq '^[a-zA-Z0-9_-]+$'; then
+    if [ -f "commands/${QUERY_STRING}.cmd" ]; then
+        print_command_exit "commands/${QUERY_STRING}.cmd"
+    fi
+fi
+
+print_random_command_exit
