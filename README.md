@@ -17,8 +17,6 @@ themselves require other Linux commands to be installed. You'll need to figure
 out the rest for yourself. And take responsibility for the security of your own
 web.
 
-## About the code
-
 The code was written *many years ago* and is old in style, but should work in most
 browsies.
 
