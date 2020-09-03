@@ -17,9 +17,11 @@ print_random_command_exit() {
     print_command_exit "$cmd"
 }
 
-if echo "$QUERY_STRING"|/bin/grep -Eq '^[a-zA-Z0-9_-]+$'; then
-    if [ -f "commands/${QUERY_STRING}.cmd" ]; then
-        print_command_exit "commands/${QUERY_STRING}.cmd"
+
+cmdparam="${QUERY_STRING%%&*}"
+if echo "$cmdparam"|/bin/grep -Eq '^[a-zA-Z0-9_-]+$'; then
+    if [ -f "commands/${cmdparam}.cmd" ]; then
+        print_command_exit "commands/${cmdparam}.cmd"
     fi
 fi
 
