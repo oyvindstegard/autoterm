@@ -2,7 +2,8 @@
 
 A JavaScript webapp of a terminal emulator that runs on its own. It prints
 things, and pretends it is something special. Which it isn't. Sometimes it is
-funny. There is a user involved as well, but we do not know its identity.
+funny. There is a user involved as well, but we do not know its identity, maybe
+it is the terminal itself.
 
 ## About the app
 
@@ -13,7 +14,8 @@ interval. Some of the scripts execute actual commands on the web server it is
 running on, if the script file is executable. (This may be a bad idea, but
 produces dynamic output.) Which is why Linux is required, and the commands
 themselves require other Linux commands to be installed. You'll need to figure
-out the rest for yourself.
+out the rest for yourself. And take responsibility for the security of your own
+web.
 
 ## About the code
 
