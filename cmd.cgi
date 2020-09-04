@@ -12,7 +12,7 @@ print_command_exit() {
 
 print_random_command_exit() {
     local cmd
-    cmd=`/bin/ls commands/*.cmd 2>/dev/null | /usr/bin/sort -R | /usr/bin/head -n1`
+    cmd=`/bin/ls commands/*.autoterm 2>/dev/null | /usr/bin/sort -R | /usr/bin/head -n1`
     [ -z "$cmd" ] && exit 1
     print_command_exit "$cmd"
 }
@@ -20,8 +20,8 @@ print_random_command_exit() {
 
 cmdparam="${QUERY_STRING%%&*}"
 if echo "$cmdparam"|/bin/grep -Eq '^[a-zA-Z0-9_-]+$'; then
-    if [ -f "commands/${cmdparam}.cmd" ]; then
-        print_command_exit "commands/${cmdparam}.cmd"
+    if [ -f "commands/${cmdparam}.autoterm" ]; then
+        print_command_exit "commands/${cmdparam}.autoterm"
     fi
 fi
 

@@ -7,15 +7,15 @@ maybe it is the terminal itself.
 
 ## About the app
 
-A terminal emulator is rendered inside an HTML `pre` tag. It executes "scripts"
-of terminal commands which emulate typing, results and thought bubbles. Those
-are located in the server side `commands/` subdirectory, selected by random at a
-regular interval. Some of the scripts execute actual commands on the web server
-it is running on, if the script file is executable. (This may be a bad idea, but
-produces dynamic output.) Which is why Linux is required, and the commands
-themselves require other Linux commands to be installed. You'll need to figure
-out the rest for yourself. And take responsibility for the security of your own
-web.
+A terminal emulator is rendered inside an HTML `pre` tag. It executes "autoterm
+scripts" of terminal commands which emulate typing, results and thought bubbles.
+Those are located in the server side `commands/` subdirectory, selected by
+random at a regular interval. Some of the scripts execute actual commands on the
+web server it is running on, if the script file is executable. (This may be a
+bad idea, but produces dynamic output.) Which is why Linux is required, and the
+commands themselves require other Linux commands to be installed. You'll need to
+figure out the rest for yourself. And take responsibility for the security of
+your own web.
 
 The code was written *many years ago* and is old in style, but should work in most
 browsies.
