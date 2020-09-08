@@ -18,7 +18,7 @@ Swap:  5855684k total,        0k used,  5855684k free,  1499924k cached
     1 root      20   0 23820 2008 1292 S    0  0.0   0:00.92 init
     2 root      20   0     0    0    0 S    0  0.0   0:00.01 kthreadd
     3 root      RT   0     0    0    0 S    0  0.0   0:00.01 migration/0
-^Z^Z^Z^Z^Z^Z^Z^Z^Z^Ltop - 23:49:50 up  7:42,  5 users,  load average: 1.02, 0.42, 0.24
+^W1^Ltop - 23:49:50 up  7:42,  5 users,  load average: 1.02, 0.42, 0.24
 Tasks: 261 total,   3 running, 258 sleeping,   0 stopped,   0 zombie
 Cpu(s):  0.7%us,  0.3%sy,  0.8%ni, 94.3%id,  3.8%wa,  0.0%hi,  0.0%si,  0.0%st
 Mem:   8194576k total,  2394772k used,  5799804k free,   138176k buffers
@@ -33,7 +33,7 @@ Swap:  5855684k total,        0k used,  5855684k free,  1499952k cached
     4 root      20   0     0    0    0 S    0  0.0   0:00.46 ksoftirqd/0
     5 root      RT   0     0    0    0 S    0  0.0   0:00.00 watchdog/0
     6 root      RT   0     0    0    0 S    0  0.0   0:00.02 migration/1
-^Z^Z^Z^Z^Z^Z^Z^Z^Z^Ltop - 23:49:52 up  7:42,  5 users,  load average: 1.02, 0.42, 0.24
+^W1^Ltop - 23:49:52 up  7:42,  5 users,  load average: 1.02, 0.42, 0.24
 Tasks: 261 total,   3 running, 258 sleeping,   0 stopped,   0 zombie
 Cpu(s):  0.7%us,  0.3%sy,  0.8%ni, 94.3%id,  3.8%wa,  0.0%hi,  0.0%si,  0.0%st
 Mem:   8194576k total,  2394632k used,  5799944k free,   138176k buffers
@@ -48,7 +48,7 @@ Swap:  5855684k total,        0k used,  5855684k free,  1499952k cached
     3 root      RT   0     0    0    0 S    0  0.0   0:00.01 migration/0
     4 root      20   0     0    0    0 S    0  0.0   0:00.46 ksoftirqd/0
     5 root      RT   0     0    0    0 S    0  0.0   0:00.00 watchdog/0
-^Z^Z^Z^Z^Z^Z^Z^Z^Z^Ltop - 23:49:54 up  7:42,  5 users,  load average: 1.02, 0.42, 0.24
+^W1^Ltop - 23:49:54 up  7:42,  5 users,  load average: 1.02, 0.42, 0.24
 Tasks: 261 total,   3 running, 258 sleeping,   0 stopped,   0 zombie
 Cpu(s):  0.7%us,  0.3%sy,  0.8%ni, 94.3%id,  3.8%wa,  0.0%hi,  0.0%si,  0.0%st
 Mem:   8194576k total,  2394632k used,  5799944k free,   138184k buffers
@@ -63,7 +63,7 @@ Swap:  5855684k total,        0k used,  5855684k free,  1499948k cached
     3 root      RT   0     0    0    0 S    0  0.0   0:00.01 migration/0
     4 root      20   0     0    0    0 S    0  0.0   0:00.46 ksoftirqd/0
     5 root      RT   0     0    0    0 S    0  0.0   0:00.00 watchdog/0
-^Z^Z^Z^Z^Z^Z^Z^Z^Z^Ltop - 23:49:56 up  7:43,  5 users,  load average: 1.10, 0.45, 0.25
+^W1^Ltop - 23:49:56 up  7:43,  5 users,  load average: 1.10, 0.45, 0.25
 Tasks: 261 total,   3 running, 258 sleeping,   0 stopped,   0 zombie
 Cpu(s):  0.7%us,  0.3%sy,  0.8%ni, 94.3%id,  3.8%wa,  0.0%hi,  0.0%si,  0.0%st
 Mem:   8194576k total,  2394632k used,  5799944k free,   138192k buffers
@@ -78,7 +78,7 @@ Swap:  5855684k total,        0k used,  5855684k free,  1499956k cached
     3 root      RT   0     0    0    0 S    0  0.0   0:00.01 migration/0
     4 root      20   0     0    0    0 S    0  0.0   0:00.46 ksoftirqd/0
     5 root      RT   0     0    0    0 S    0  0.0   0:00.00 watchdog/0
-^Z^Z^Z^Z^Z^Z^Z^Z^Z^Ltop - 23:49:58 up  7:43,  5 users,  load average: 1.10, 0.45, 0.25
+^W1^Ltop - 23:49:58 up  7:43,  5 users,  load average: 1.10, 0.45, 0.25
 Tasks: 261 total,   3 running, 258 sleeping,   0 stopped,   0 zombie
 Cpu(s):  0.7%us,  0.3%sy,  0.8%ni, 94.3%id,  3.8%wa,  0.0%hi,  0.0%si,  0.0%st
 Mem:   8194576k total,  2394632k used,  5799944k free,   138192k buffers
