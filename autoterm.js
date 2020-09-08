@@ -170,14 +170,12 @@ function AutoTerm(element) {
         self.cursorText.nodeValue = (self.cursorText.nodeValue != '|') ? '|' : ' ';
     }
 
-    // Internal
     const put = function(str) {
         stopCursorBlink();
         self.text.nodeValue += str;
         startCursorBlink();
     }
 
-    // Internal
     const setBubble = function(text, timeout) {
         if (self.bubbleTimeout) clearTimeout(self.bubbleTimeout);
         text = text.replace(/(?:\r\n|\r|\n)/g, '');
@@ -190,19 +188,16 @@ function AutoTerm(element) {
         clearTimeout(self.bubbleTimeout);
     }
 
-    // Internal
     const contentEndsWithPrompt = function(prompt) {
         var last = self.text.nodeValue.lastIndexOf(prompt);
         return (last != -1) && (last + prompt.length == self.text.nodeValue.length);
     }
     
-    // Internal
     const clearScreenInstruction = function() {
         self.text.nodeValue = '';
         clearBubble();
     }
 
-    // Internal
     const backspaceInstruction = function(n) {
         if (n > self.text.nodeValue.length) {
             self.text.nodeValue = '';
