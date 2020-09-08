@@ -109,12 +109,12 @@ function AutoTerm(element) {
 
     // Clears terminal contents and aborts any ongoing execution.
     this.clear = function() {
-        if (this.timer) {
-            clearTimeout(this.timer);
+        if (self.timer) {
+            clearTimeout(self.timer);
         }
-        this.startCursorBlink();
-        this.text.nodeValue = '';
-        this.busy = false;
+        startCursorBlink();
+        self.text.nodeValue = '';
+        self.busy = false;
     }
 
     const setTypingSpeedInstruction = function(operand) {
