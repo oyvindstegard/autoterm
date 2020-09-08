@@ -1,12 +1,68 @@
 // - The Autonomous Terminal emulator. -
 // JavaScript player for simple autonomous
 // text terminal interaction language.
-// Copyright 2003,2010 Øyvind Stegard.
+// Copyright 2003,2010,2020 Øyvind Stegard.
 
-// Works only with elements supporting pre-formatted text.
+'use strict';
+
+/* Autoterm script tokenizer */
+function Token(text) {
+    this.text = text;
+}
+Token.prototype.toString = function() { return 'Token{'+this.text+'}'; }
+
+function IToken(text) {
+    Token.call(this, text);
+    this.instruction = text.charAt(1);
+}
+IToken.prototype = Object.create(Token.prototype);
+IToken.prototype.toString = function() { return 'IToken{'+this.instruction+'}'; }
+IToken.prototype.constructor = IToken;
+
+function tokenize(s) {
+
+    const nodes = [];
+    
+    var i = 0;
+    while (i < s.length) {
+        if (s.charAt(i) === '^') {
+            if (s.charAt(i+1)) {
+                nodes.push(new IToken(s.substring(i,i+2)));
+                switch (s.charAt(i+1)) {
+                    // Some instructions have a one char operand which must be its own token.
+                case 'W':
+                case 'S':
+                    nodes.push(new Token(s.substring(i+2,i+3)));
+                    i += 3;
+                    break;
+                default:
+                    i += 2;
+                }
+            } else {
+                i += 1;
+            }
+        } else {
+            var n = s.indexOf('^', i);
+            if (n === -1) {
+                n = s.length;
+            }
+            var text = s.substring(i,n);
+            if (text) {
+                nodes.push(new Token(text));
+            }
+            i = n;
+        }
+    }
+
+    return nodes;
+}
+
+/* Autoterm object: Requires an element to render inside. */
 function AutoTerm(element) {
     if (!element) return null;
     this.elem = element;
+
+    const self = this;
 
     // Take over element contents
     if (this.elem.hasChildNodes()) {
@@ -31,25 +87,24 @@ function AutoTerm(element) {
     bubbleSpan.appendChild(this.bubbleText);
 
     // Execute command script in string arg 'commands'
-    this.exec = function(commands, prompt, pause) {
-        // Should probably tokenize input script into array, but .. couldn't be bothered.
-        this.commands = commands;
+    this.exec = function(autotermScript, prompt, pause) {
+
+        this.tokens = tokenize(autotermScript);
         this.prompt = prompt;
         this.pause = pause;
         this.typingSpeed = 50;
 
-        if (this.contentEndsWithPrompt(this.prompt)
-            && this.commands.indexOf('^P') == 0) {
-            this.commands = this.commands.substring(2);
+        if (contentEndsWithPrompt(this.prompt)
+            && this.tokens[0] && this.tokens[0].text.indexOf('^P') === 0) {
+            this.tokens.shift();
         }
 
         if (this.timer) {
             clearTimeout(this.timer);
         }
 
-        this.stopCursorBlink();
         this.busy = true;
-        this.process(true);
+        processUsingTokens(true);
     }
 
     // Clears terminal contents and aborts any ongoing execution.
@@ -62,228 +117,187 @@ function AutoTerm(element) {
         this.busy = false;
     }
 
-    // Returns number of lines in current terminal contents
-    this.lines = function() {
-        return this.text.nodeValue.replace(/[^\n]/g, '').length;
-    }
-
-    // Internal
-    this.process = function(init) {
-        if (init) {
-            this.cursor = 0;
-            this.result = false;
+    const setTypingSpeedInstruction = function(operand) {
+        var num = parseInt(operand, 10);
+        if (isNaN(num)) {
+            return false;
         }
-        
-        var cmd = this.commands;
-
-        while (this.cursor < cmd.length) {
-            if (this.result) {
-                var end = cmd.indexOf('^', this.cursor);
-                if (end == -1) end = cmd.length;
-                this.put(cmd.substring(this.cursor, end));
-                
-                if (end < cmd.length - 1) {
-                    var cmdChar = cmd.charAt(end+1);
-                    if (cmdChar == 'Z') {
-                        // Handle in-result ^Z random sleeping (shorter timeouts)
-                        this.cursor = end + 2; this.result = true;
-                        return this.timeout(150, 100);
-                    }
-                    
-                    if (cmdChar == 'L') {
-                        // Handle in-result clear screen
-                        this.clearScreenInstruction();
-                        this.cursor = end + 2; this.result = true;
-                        continue;
-                    }
-                }
-
-                this.cursor = end; this.result = false;
-                return this.timeout(100, 0);
-            } else {
-                if (cmd.charAt(this.cursor) == '^' && this.cursor < cmd.length - 1) {
-                    switch (cmd.charAt(this.cursor + 1)) {
-                    case '\n':
-                        // Result instruction
-                        this.put('\n');
-                        this.cursor += 2; this.result = true;
-                        return this.timeout(500, 200);
-
-                    case 'P':
-                        // Prompt instruction
-                        this.put(this.prompt);
-                        this.cursor += 2; this.result = false;
-                        continue;
-                        
-                    case 'B':
-                        // Backspace instruction
-                        this.backspaceInstruction(1);
-                        this.cursor += 2; this.result = false;
-                        return this.timeout(0, 100);
-                        
-                    case 'L':
-                        // Clear screen instruction
-                        this.clearScreenInstruction();
-                        this.cursor += 2; this.result = false;
-                        continue;
-
-                    case 'T':
-                        // Thought bubble instruction
-                        this.cursor = this.bubbleInstruction(cmd, this.cursor);
-                        this.result = false;
-                        continue;
-
-                    case 'S':
-                        // Set typing speed instruction
-                        if (this.cursor < cmd.length - 2) {
-                            var num = parseInt(cmd.charAt(this.cursor + 2), 10);
-                            if (num == NaN) {
-                                this.cursor += 2; this.result = false;
-                                continue;
-                            }
-                            if (num == 9)
-                                this.typingSpeed = 0; // max speed
-                            else this.typingSpeed = 100 - (num*10);
-                                
-                            this.cursor += 3; this.result = false;
-                            continue
-                        } else {
-                            this.cursor += 2; this.result = false;
-                            continue;
-                        }
-                        
-                    case 'N':
-                        // No-op instruction.
-                        this.cursor += 2; this.result = false;
-                        continue;
-                        
-                    case 'Z':
-                        // Random nap time instruction
-                        this.cursor += 2; this.result = false;
-                        return this.timeout(2000, 300);
-
-                    case '^':
-                        ++this.cursor;
-                        
-                    default:
-                    }
-                }
-                
-                this.put(cmd.charAt(this.cursor));
-                this.cursor += 1; this.result = false;
-                return this.ttimeout();
-            }
-        }
-
-        // Finished processing
-        this.startCursorBlink();
-
-        // Check for final pause after processing.
-        if (this.pause && this.pause > 0) {
-            var pause = this.pause;
-            this.pause = null;
-            return this.timeout(0, pause);
-        }
-
-        this.busy = false;
-        return false;
-    }
-    
-    // Internal
-    this.timeout = function(rwait, cwait) {
-        var self = this;
-        var tmout = Math.floor(Math.random()*rwait) + cwait;
-        this.timer = setTimeout(function() { self.process(false); }, tmout);
+        self.typingSpeed = (num == 9) ? 0 : 100 - (num*10);
         return true;
     }
 
-    // Internal
-    this.ttimeout = function() {
-        var typeTimeout = Math.random()*(this.typingSpeed + 80) + this.typingSpeed;
+    const typeOut = function(text, index) {
+        if (index === undefined) {
+            index = 0;
+        }
+        var typeTimeout = Math.random()*(self.typingSpeed + 80) + self.typingSpeed;
         var seed = Math.random();
         if (seed <= 0.10) typeTimeout *= 1.50;
         if (seed > 0.10 && seed <= 0.15) typeTimeout *= 0.70;
         if (typeTimeout < 0) typeTimeout = 10;
         else typeTimeout = Math.floor(typeTimeout);
 
-        return this.timeout(0, typeTimeout);
-    }
-
-    // Internal
-    this.put = function(str) {
-        this.text.nodeValue += str;
-    }
-
-    // Internal
-    this.clearScreenInstruction = function() {
-        this.text.nodeValue = '';
-        this.clearBubble();
-    }
-
-    // Internal
-    this.backspaceInstruction = function(n) {
-        if (n > this.text.nodeValue.length) {
-            this.text.nodeValue = '';
+        if (text.charAt(index)) {
+            put(text.charAt(index));
+            return timeout(0, typeTimeout, function() { typeOut(text, index+1) });
         } else {
-            this.text.nodeValue = this.text.nodeValue.substring(0, this.text.nodeValue.length - n);
+            return timeout(0, typeTimeout);
         }
     }
 
-    // Internal
-    this.bubbleInstruction = function(cmd, cursor) {
-        var end = cmd.indexOf('^', cursor + 2);
-        if (end == -1) end = cmd.length;
-        if (cmd.charAt(end-1) == '\n')
-            this.setBubble(cmd.substring(cursor + 2, end-1), 5000);
-        else
-            this.setBubble(cmd.substring(cursor + 2, end), 5000);
-
-        return end;
+    const timeout = function(rwait, cwait, callbackFn) {
+        const tmout = Math.floor(Math.random()*rwait) + cwait;
+        const callback = callbackFn ? callbackFn : function() { processUsingTokens(false); };
+        self.timer = setTimeout(callback, tmout);
+        return true;
     }
-
-    // Internal
-    this.setBubble = function(text, timeout) {
-        this.bubbleText.nodeValue = '\t\t\t . o O (( ' + text + ' ))';
-        if (this.bubbleTimeout) clearTimeout(this.bubbleTimeout);
-        var self = this;
-        this.bubbleTimeout = setTimeout(function() { self.clearBubble(); }, timeout);
-    }
-
-    // Internal
-    this.clearBubble = function() {
-        this.bubbleText.nodeValue = '';
-        if (this.bubbleTimeout) clearTimeout(this.bubbleTimeout);
-    }
-
-    // Internal
-    this.contentEndsWithPrompt = function(prompt) {
-        var last = this.text.nodeValue.lastIndexOf(prompt);
-        return (last != -1) && (last + prompt.length == this.text.nodeValue.length);
-    }
-
-    // Internal
-    this.startCursorBlink = function() {
-        if (this.cursorBlinkTimer) return false;
-        var self = this;
-        this.cursorBlinkTimer = setInterval(function() { self.toggleCursor(); }, 1000);
+        
+    const startCursorBlink = function() {
+        if (self.cursorBlinkTimer) return false;
+        self.cursorBlinkTimer = setInterval(toggleCursor, 1000);
         return true;
     }
 
-    // Internal
-    this.stopCursorBlink = function() {
-        if (! this.cursorBlinkTimer) return false;
-        clearInterval(this.cursorBlinkTimer);
-        this.cursorBlinkTimer = null;
-        this.cursorText.nodeValue = '|';
+    const stopCursorBlink = function() {
+        if (! self.cursorBlinkTimer) return false;
+        clearInterval(self.cursorBlinkTimer);
+        self.cursorBlinkTimer = null;
+        self.cursorText.nodeValue = '|';
         return true;
     }
 
-    // Internal
-    this.toggleCursor = function() {
-        this.cursorText.nodeValue = (this.cursorText.nodeValue != '|') ? '|' : ' ';
+    const toggleCursor = function() {
+        self.cursorText.nodeValue = (self.cursorText.nodeValue != '|') ? '|' : ' ';
     }
 
-    // Start blinking cursor at end of terminal object construction
-    this.startCursorBlink();
+    // Internal
+    const put = function(str) {
+        stopCursorBlink();
+        self.text.nodeValue += str;
+        startCursorBlink();
+    }
+
+    // Internal
+    const setBubble = function(text, timeout) {
+        if (self.bubbleTimeout) clearTimeout(self.bubbleTimeout);
+        text = text.replace(/(?:\r\n|\r|\n)/g, '');
+        self.bubbleText.nodeValue = '\t\t\t . o O (( ' + text + ' ))';
+        self.bubbleTimeout = setTimeout(clearBubble, timeout);
+    }
+
+    const clearBubble = function() {
+        self.bubbleText.nodeValue = '';
+        clearTimeout(self.bubbleTimeout);
+    }
+
+    // Internal
+    const contentEndsWithPrompt = function(prompt) {
+        var last = self.text.nodeValue.lastIndexOf(prompt);
+        return (last != -1) && (last + prompt.length == self.text.nodeValue.length);
+    }
+    
+    // Internal
+    const clearScreenInstruction = function() {
+        self.text.nodeValue = '';
+        clearBubble();
+    }
+
+    // Internal
+    const backspaceInstruction = function(n) {
+        if (n > self.text.nodeValue.length) {
+            self.text.nodeValue = '';
+        } else {
+            self.text.nodeValue = self.text.nodeValue.substring(0, self.text.nodeValue.length - n);
+        }
+    }
+    
+    const processUsingTokens = function(init) {
+        if (init) {
+            self.result = false;
+            self.busy = true;
+        }
+
+        var token;
+        while ((token = self.tokens.shift())) {
+            if (token instanceof IToken) {
+                switch (token.instruction) {
+                case '\n':  // Result instruction
+                    put('\n');
+                    self.result = true;
+                    return timeout(500, 200);
+
+                case 'P':   // Prompt instruction
+                    put(self.prompt);
+                    self.result = false;
+                    continue;
+
+                case 'B':   // Backspace instruction
+                    backspaceInstruction(1);
+                    self.result = false;
+                    return timeout(5, 100);
+
+                case 'T':   // Thought bubble instruction
+                    if (self.tokens[0] && ! (self.tokens[0] instanceof IToken)) {
+                        setBubble(self.tokens.shift().text, 5000);
+                    }
+                    self.result = false;
+                    continue;
+
+                case 'S':
+                    // Set typing speed instruction
+                    if (setTypingSpeedInstruction(self.tokens[0].text)) {
+                        self.tokens.shift();
+                    }
+                    self.result = false;
+                    continue;
+                    
+                case 'N':
+                    // No-op instruction.
+                    self.result = false;
+                    continue;
+                    
+                case 'L':   // Clear screen instruction
+                    clearScreenInstruction();
+                    continue;
+
+                case 'Z':
+                    // Random nap time instruction
+                    return timeout(self.result ? 150 : 2000, self.result ? 100 : 300);
+
+                case 'W':
+                    // Wait for 0 to 9 seconds instruction
+                    const seconds = parseInt(self.tokens[0].text, 10);
+                    if (isNaN(seconds)) {
+                        continue;
+                    }
+                    self.tokens.shift();
+                    return timeout(0, seconds*1000);
+                    
+                case '^':
+                    put('^');
+                    continue;
+                    
+                default:
+                }
+            } else {
+                if (self.result) {
+                    put(token.text);
+                } else {
+                    return typeOut(token.text);
+                }
+            }
+        }
+
+        // Check for final pause after processing.
+        if (self.pause && self.pause > 0) {
+            var pause = self.pause;
+            self.pause = null;
+            return timeout(0, pause);
+        }
+        
+        self.busy = false;
+        return false;
+    }
+
 
 } // ctor AutoTerm
