@@ -86,7 +86,7 @@ function AutoTerm(element) {
     this.elem.appendChild(bubbleSpan);
     bubbleSpan.appendChild(this.bubbleText);
 
-    // Execute command script in string arg 'commands'
+    // Execute autoterm command script
     this.exec = function(autotermScript, prompt, pause) {
 
         this.tokens = tokenize(autotermScript);
