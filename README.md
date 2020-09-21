@@ -17,8 +17,9 @@ commands themselves require other Linux commands to be installed. You'll need to
 figure out the rest for yourself. And take responsibility for the security of
 your own web.
 
-The code was written *many years ago* and is old in style, but should work in most
-browsies.
+The code was written *many years ago* and is old in style, but should work in
+most browsies. Some recent cleanups have been performed, because, well, I
+couldn't help myself.
 
 ## Requirements
 
