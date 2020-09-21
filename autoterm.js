@@ -87,8 +87,7 @@ function AutoTerm(element) {
     bubbleSpan.appendChild(this.bubbleText);
 
     // Execute autoterm command script
-    this.exec = function(autotermScript, prompt, pause) {
-
+    this.play = function(autotermScript, prompt, pause) {
         this.tokens = tokenize(autotermScript);
         this.prompt = prompt;
         this.pause = pause;
@@ -104,7 +103,7 @@ function AutoTerm(element) {
         }
 
         this.busy = true;
-        processUsingTokens(true);
+        executeScriptPlayback(true);
     }
 
     // Clears terminal contents and aborts any ongoing execution.
@@ -116,6 +115,27 @@ function AutoTerm(element) {
         self.text.nodeValue = '';
         self.busy = false;
     }
+
+    // Callback invoked on script playback completion, including final pause.
+    // this bound to autoterm instance
+    this.onScriptCompleted = null;
+    const invokeScriptCompletedCallback = function() {
+        if (typeof self.onScriptCompleted === 'function') {
+            try {
+                self.onScriptCompleted.call(self);
+            } catch (e) { }
+        }
+    };
+    // Callback invoked every time script results are printed
+    // this bound to autoterm instance
+    this.onScriptResult = null;
+    const invokeScriptResultCallback = function() {
+        if (typeof self.onScriptResult === 'function') {
+            try {
+                self.onScriptResult.call(self);
+            } catch (e) { }
+        }
+    };
 
     const setTypingSpeedInstruction = function(operand) {
         var num = parseInt(operand, 10);
@@ -147,7 +167,7 @@ function AutoTerm(element) {
 
     const timeout = function(rwait, cwait, callbackFn) {
         const tmout = Math.floor(Math.random()*rwait) + cwait;
-        const callback = callbackFn ? callbackFn : function() { processUsingTokens(false); };
+        const callback = callbackFn ? callbackFn : function() { executeScriptPlayback(false); };
         self.timer = setTimeout(callback, tmout);
         return true;
     }
@@ -179,12 +199,12 @@ function AutoTerm(element) {
     const setBubble = function(text, timeout) {
         if (self.bubbleTimeout) clearTimeout(self.bubbleTimeout);
         text = text.replace(/(?:\r\n|\r|\n)/g, '');
-        self.bubbleText.nodeValue = '\t\t\t . o O (( ' + text + ' ))';
+        self.bubbleText.nodeValue = '\n\n｡ o O {  ' + text + '  }';
         self.bubbleTimeout = setTimeout(clearBubble, timeout);
     }
 
     const clearBubble = function() {
-        self.bubbleText.nodeValue = '';
+        self.bubbleText.nodeValue = '\n\n';
         clearTimeout(self.bubbleTimeout);
     }
 
@@ -206,7 +226,7 @@ function AutoTerm(element) {
         }
     }
     
-    const processUsingTokens = function(init) {
+    const executeScriptPlayback = function(init) {
         if (init) {
             self.result = false;
             self.busy = true;
@@ -250,7 +270,7 @@ function AutoTerm(element) {
                     // No-op instruction.
                     self.result = false;
                     continue;
-                    
+
                 case 'L':   // Clear screen instruction
                     clearScreenInstruction();
                     continue;
@@ -277,6 +297,7 @@ function AutoTerm(element) {
             } else {
                 if (self.result) {
                     put(token.text);
+                    invokeScriptResultCallback();
                 } else {
                     return typeOut(token.text);
                 }
@@ -291,6 +312,7 @@ function AutoTerm(element) {
         }
         
         self.busy = false;
+        invokeScriptCompletedCallback();
         return false;
     }
 
