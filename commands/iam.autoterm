@@ -1,0 +1,4 @@
+#!/bin/sh
+printf '^P^S8shuf -n10 /usr/share/dict/british-english|tr \\\\n \\\\0|xargs -0 -n1 echo I am^\n'
+shuf -n10 /usr/share/dict/british-english|tr \\n \\0|xargs -0 -n1 echo I am
+printf '^P^W3'
