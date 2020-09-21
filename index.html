@@ -9,7 +9,6 @@
         <script src="autoterm.js"></script>
         <script>
          var autoterm = null;
-         var first = true;
          
          function getOptions() {
              const options = {
@@ -40,14 +39,13 @@
              window.scrollTo(0, pageElem.scrollHeight);
          }
 
-         function playNextScript() {
+         function playNextScript(first) {
              if (!autoterm) return false;
 
              autoterm.onScriptCompleted = playNextScript;
              autoterm.onScriptResult = scrollToBottom;
 
-             if (first) {
-                 first = false;
+             if (first === true) {
                  autoterm.play(
                      '^S9# Autonomous terminal at your^B^B^B^Bmy service.'+
                      '\n# Stay away from keyboard, thank you.\n',
@@ -86,7 +84,7 @@
          $(document).ready(function() {
              autoterm = new AutoTerm($('#autoterm').get(0));
              window.addEventListener('hashchange', playNextScript, false);
-             playNextScript();
+             playNextScript(true);
          });
         </script>
         <style>
