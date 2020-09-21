@@ -1,13 +1,14 @@
-^P^Z^TI want change in my life.^W3zsh^
+^P^Z^TI want change in my life^W3zsh^
 bash: zsh: command not found
-^P^Z^Z^Tok thought I had that one installed ..^Z^Zls /bin/zsh^
+^P^Z^Z^Tthought I had that one installed^Z^Zls /bin/zsh^
 /bin/zsh
-^P^Z^Twhat's going on here^Zecho $PATH^
-/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
-^P^W4zsh^
-bash: zsh: command not found *cough*, hrm
+^P^W2^Tok what ? *confused*^W3echo $PATH^
+/bin:/usr/local/sbin:/usr/local/bin:/sbin:/usr/sbin:/usr/bin
+^P^W4^S8zsh^
+bash: zsh: command not found *hrm*
 ^P^W3^S0/bin/zsh^
-bash: the grass isn't really that much greener on the other side
-^W2bash: stay a while, have a cup of tea
+^W1bash: you know ..
+^W2bash: the grass isn't greener on the other side
+^W4bash: stay a while, have a cup of tea
 ^W4bash: oh, and: /bin/zsh: inappropriate file or directory
 ^P

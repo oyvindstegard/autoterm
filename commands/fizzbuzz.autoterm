@@ -1,4 +1,4 @@
-^S2^Pcat > fizzbuzz.py^
+^P^S2cat > fizzbuzz.py^
 ^Z^Z^Z^Z#!/usr/bin/env python
 
 for n in range(1,101):
@@ -6,7 +6,7 @@ for n in range(1,101):
     elif n % 3 == 0: print('Fizz')
     elif n % 5 == 0: print('Buzz')
     else: print(n)
-^Z^Z^Z^P^Zchmod +x fizzbuzz.py^
+^Z^Z^Z^P^Zchmod +x fizzbuss^B^Bzz.py^
 ^P./fizzbuzz.py^
 1
 2

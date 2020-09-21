@@ -1,5 +1,12 @@
 #!/bin/sh
 printf '^Pfortune^\n'
-/usr/games/fortune
-printf '^P'
-
+text=$(/usr/games/fortune)
+if [ ${#text} -lt 50 ]; then
+    printf '%s\n^P^W2' "$text"
+elif [ ${#text} -lt 100 ]; then
+    printf '%s\n^P^W4' "$text"
+elif [ ${#text} -lt 200 ]; then
+    printf '%s\n^P^W9' "$text"
+else
+    printf '%s\n^P^W9^W5' "$text"
+fi
