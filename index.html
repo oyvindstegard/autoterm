@@ -13,13 +13,23 @@
          function getOptions() {
              const options = {
                  'once': false,
+                 'intro': true,
+                 'inline': false,
                  'script': null
              };
              if (window.location.hash) {
                  window.location.hash.substring(1).split('|').forEach(function(opt) {
+                     if (opt.indexOf('inline=') === 0) {
+                         options.inline = true;
+                         options.script = decodeURIComponent(opt.substring(7));
+                         return true;
+                     }
                      switch (opt) {
                          case 'once':
                              options.once = true;
+                             break;
+                         case 'nointro':
+                             options.intro = false;
                              break;
                          default:
                              options.script = opt;
@@ -45,7 +55,9 @@
              autoterm.onScriptCompleted = playNextScript;
              autoterm.onScriptResult = scrollToBottom;
 
-             if (first === true) {
+             const options = getOptions();
+
+             if (first === true && options.intro) {
                  autoterm.play(
                      '^S9# Autonomous terminal at your^B^B^B^Bmy service.'+
                      '\n# Stay away from keyboard, thank you.\n',
@@ -61,7 +73,6 @@
                  autoterm.clear();
              }
 
-             const options = getOptions();
              var fetchUrl = 'cmd.cgi';
              if (options.script) {
                  fetchUrl += ('?' + options.script);
@@ -70,6 +81,10 @@
              }
              if (options.once) {
                  autoterm.onScriptCompleted = null;
+             }
+             if (options.inline && options.script) {
+                 autoterm.play(options.script, '$ ', 2500 + Math.floor(Math.random()*500));
+                 return true;
              }
 
              $.ajax(fetchUrl, {
