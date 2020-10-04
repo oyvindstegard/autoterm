@@ -3,3 +3,5 @@ AddHandler cgi-script cgi
 RewriteEngine on
 RewriteRule ^full$ index.html
 AddType 'text/plain; charset=UTF-8' .autoterm
+AddCharset UTF-8 .js
+

@@ -2,10 +2,10 @@
 segmentation fault
 ^P^Z^Thuh ??^Z^S5./myprog^
 segmentation fault
-^P^Z^Targ!^Z^S9./myprog^
+^P^Z^T*arg!*^Z^S9./myprog^
 segmentation fault
-$ ^W1./myprog^Z^TRUN GOD DAMMIT^W1^
-segmentation fault
+$ ^W1./myprog^Z^TRUN GOD DAMMIT^
+^Zsegmentation fault
 ^P^W4^S5fortune^
 Albert Einstein once said:
    "The definition of insanity is doing the same thing

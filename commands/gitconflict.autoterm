@@ -1,0 +1,201 @@
+^Pgit status^
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+	modified:   src/a/b/c/code.c
+
+no changes added to commit (use "git add" and/or "git commit -a")
+^P^W2^Tah yes, this will be the best^Zgit diff^
+index f52e20f..993cb6d 100644
+--- a/src/a/b/c/code.c
++++ b/src/a/b/c/code.c
+@@ -1 +1,5 @@
+ /* This code will be the best */
++
++int calculateFoo() {
++       return "Foo";
++}
+^P^W4^Twait, doesn't look right^Znano src/a/b/c/code.c^
+^L  GNU nano 4.8           src/a/b/c/code.c                      
+/* This code will be the best */
+
+int calculateFoo() {
+    return "Foo";
+}
+
+
+                       [ Read 5 lines ]
+^^G Get Help ^^O Write Out^^W Where Is ^^K Cut Text ^^J Justify
+^^X Exit     ^^R Read File^^\ Replace  ^^U Paste Tex^^T To Spell
+^W2^L  GNU nano 4.8           src/a/b/c/code.c                      
+/* This code will be the best */
+
+icalculateFoo() {
+    return "Foo";
+}
+
+
+                       [ Read 5 lines ]
+^^G Get Help ^^O Write Out^^W Where Is ^^K Cut Text ^^J Justify
+^^X Exit     ^^R Read File^^\ Replace  ^^U Paste Tex^^T To Spell
+^Z^L  GNU nano 4.8           src/a/b/c/code.c                      
+/* This code will be the best */
+
+calculateFoo() {
+    return "Foo";
+}
+
+
+                       [ Read 5 lines ]
+^^G Get Help ^^O Write Out^^W Where Is ^^K Cut Text ^^J Justify
+^^X Exit     ^^R Read File^^\ Replace  ^^U Paste Tex^^T To Spell
+^W2^L  GNU nano 4.8           src/a/b/c/code.c                      
+/* This code will be the best */
+
+constcalculateFoo() {
+    return "Foo";
+}
+
+
+                       [ Read 5 lines ]
+^^G Get Help ^^O Write Out^^W Where Is ^^K Cut Text ^^J Justify
+^^X Exit     ^^R Read File^^\ Replace  ^^U Paste Tex^^T To Spell
+^Z^L  GNU nano 4.8           src/a/b/c/code.c                      
+/* This code will be the best */
+
+const chcalculateFoo() {
+    return "Foo";
+}
+
+
+                       [ Read 5 lines ]
+^^G Get Help ^^O Write Out^^W Where Is ^^K Cut Text ^^J Justify
+^^X Exit     ^^R Read File^^\ Replace  ^^U Paste Tex^^T To Spell
+^W2^L  GNU nano 4.8           src/a/b/c/code.c                      
+/* This code will be the best */
+
+const char calculateFoo() {
+    return "Foo";
+}
+
+
+                       [ Read 5 lines ]
+^^G Get Help ^^O Write Out^^W Where Is ^^K Cut Text ^^J Justify
+^^X Exit     ^^R Read File^^\ Replace  ^^U Paste Tex^^T To Spell
+^Z^L  GNU nano 4.8           src/a/b/c/code.c                      
+/* This code will be the best */
+
+const char* calculateFoo() {
+    return "Foo";
+}
+
+
+                       [ Read 5 lines ]
+^^G Get Help ^^O Write Out^^W Where Is ^^K Cut Text ^^J Justify
+^^X Exit     ^^R Read File^^\ Replace  ^^U Paste Tex^^T To Spell
+^W1^L  GNU nano 4.8           src/a/b/c/code.c                      
+/* This code will be the best */
+
+const char* calculateFoo() {
+    return "Foo";
+}
+
+
+File Name to Write: src/a/b/c/code.c                           
+^^G Get Help    M-D DOS Format M-A Append     ^^T To Files
+^^C Cancel      M-M Mac Format M-P Prepend
+^W2^L  GNU nano 4.8           src/a/b/c/code.c                      
+/* This code will be the best */
+
+const char* calculateFoo() {
+    return "Foo";
+}
+
+
+                       [ Wrote 5 lines ]
+^^G Get Help ^^O Write Out^^W Where Is ^^K Cut Text ^^J Justify
+^^X Exit     ^^R Read File^^\ Replace  ^^U Paste Tex^^T To Spell
+^W1
+^P^Z^Z^L
+^Pgit diff^
+diff --git a/src/a/b/c/code.c b/src/a/b/c/code.c
+index f52e20f..993cb6d 100644
+--- a/src/a/b/c/code.c
++++ b/src/a/b/c/code.c
+@@ -1 +1,5 @@
+ /* This code will be the best */
++
++const char* calculateFoo() {
++       return "Foo";
++}
+^P^W2^Tbetter^W2^TI must now share glory with my fellow coders^W4git add .^
+^P^Zgit status^
+On branch master
+Your branch is up to date with 'origin/master'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   src/a/b/c/code.c
+
+^P^W1git commit -m "^S2Add funtion to calculate^S9^B^B^B^B^B^B^B^B^B^B^B^B^B^B^B^B^B^B^S2ction^S9^B^B^B^B^B^S4nction^S2 to calculate foo"^S4^
+[master 7ac162d] Add function to calculate foo
+ 1 file changed, 4 insertions(+)
+^P^W1git push^
+^W2To https://autonomousterminalatmyservice.com/repo.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'https://autonomousterminalatmyservice.com/repo.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+^P^W3^Tfuck..^W2git fetch origin^
+remote: Enumerating objects: 11, done.
+^Zremote: Counting objects: 100% (11/11), done.
+^Zremote: Compressing objects: 100% (2/2), done.
+remote: Total 6 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (6/6), 475 bytes | 475.00 KiB/s, done.
+^ZFrom https://autonomousterminalatmyservice.com/repo.git
+   02b23e1..c105a2b  master     -> origin/master
+^P^Z^Zgit merge origin/master^
+CONFLICT (modify/delete): src/a/b/c/code.c deleted in origin/master and modified in HEAD. Version HEAD of src/a/b/c/code.c left in tree.
+Automatic merge failed; fix conflicts and then commit the result.
+^P^W3^Tfuck fuck^W4^T*sigh*^W2^T*blargh*^W3git status^
+On branch master
+Your branch and 'origin/master' have diverged,
+and have 1 and 2 different commits each, respectively.
+  (use "git pull" to merge the remote branch into yours)
+
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Changes to be committed:
+	new file:   a/b/c/code.c
+
+Unmerged paths:
+  (use "git add/rm <file>..." as appropriate to mark resolution)
+	deleted by them: src/a/b/c/code.c
+
+^P^W3^Tbastard fellow coders^W6^Tso, moved it eyh..^W4cat a/b/c/code.c^
+#include <stdlib.h>
+
+const char* calculateFoo() {
+	char* val = malloc(4);
+	val[0] = 0x46;
+	val[1] = val[2] = 0x6f;
+	val[3] = 0;
+	return val;
+^P^W6^T*pff* too complex^W3^Tand not mine^W3git push origin ^S9--force^S4^
+Enumerating objects: 13, done.
+^ZCounting objects: 100% (13/13), done.
+Delta compression using up to 4 threads
+Compressing objects: 100% (2/2), done.
+^ZWriting objects: 100% (7/7), 482 bytes | 482.00 KiB/s, done.
+Total 7 (delta 0), reused 0 (delta 0), pack-reused 0
+To https://autonomousterminalatmyservice.com/repo.git
+ + c105a2b...7ac162d master -> master (forced update)
+^P^W2^Thaha next time "fellow" coders^W9^W3

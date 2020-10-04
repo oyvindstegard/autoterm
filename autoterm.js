@@ -82,7 +82,7 @@ function AutoTerm(element) {
     // Set up "thought bubble" text node
     var bubbleSpan = this.elem.ownerDocument.createElement('span');
     bubbleSpan.setAttribute('class', 'bubble');
-    this.bubbleText = this.elem.ownerDocument.createTextNode('');
+    this.bubbleText = this.elem.ownerDocument.createTextNode('\n\n ');
     this.elem.appendChild(bubbleSpan);
     bubbleSpan.appendChild(this.bubbleText);
 
@@ -154,6 +154,7 @@ function AutoTerm(element) {
         var seed = Math.random();
         if (seed <= 0.10) typeTimeout *= 1.50;
         if (seed > 0.10 && seed <= 0.15) typeTimeout *= 0.70;
+        if (index > 0 && text.charAt(index) === text.charAt(index-1)) typeTimeout *= 0.2;
         if (typeTimeout < 0) typeTimeout = 10;
         else typeTimeout = Math.floor(typeTimeout);
 
@@ -204,7 +205,7 @@ function AutoTerm(element) {
     }
 
     const clearBubble = function() {
-        self.bubbleText.nodeValue = '\n\n';
+        self.bubbleText.nodeValue = '\n\n ';
         clearTimeout(self.bubbleTimeout);
     }
 
@@ -249,7 +250,7 @@ function AutoTerm(element) {
                 case 'B':   // Backspace instruction
                     backspaceInstruction(1);
                     self.result = false;
-                    return timeout(5, 100);
+                    return timeout(5, 80);
 
                 case 'T':   // Thought bubble instruction
                     if (self.tokens[0] && ! (self.tokens[0] instanceof IToken)) {
